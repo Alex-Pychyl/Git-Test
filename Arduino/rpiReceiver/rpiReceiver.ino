@@ -9,7 +9,7 @@ void setup() {
   Serial.begin(9600);
   
   // attach interrupt to input pin (if desired)
-  // attachInterrupt(digitalPinToInterrupt(3), interruptHandler, FALLING);
+  // attachInterrupt(digitalPinToInterrupt(inputPin), interruptHandler, FALLING);
 }
 
 void loop() {
