@@ -4,7 +4,7 @@ from time import sleep;
 
 outputPin = 10;
 ledPin = 12;
-cycle = 0.166;
+cycle = 1/6;
 
 GPIO.setwarnings(False);
 GPIO.setmode(GPIO.BOARD);
