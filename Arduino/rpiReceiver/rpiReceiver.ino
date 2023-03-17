@@ -4,29 +4,45 @@ const unsigned int cycle = 1000/6;
 // set the input pin number
 const unsigned int inputPin = 3;
 
+// decoding from decimal integer to command
+char codes[16][100] = {"It's morbin' time", "Beam me up, Scotty", "Power up the borg cube", "Red alert", "Exterminate!", "Reverse the polarity of the neutron flow", "The name's Bond, James Bond", "Use the force Luke", "Go back to the future", "Shut up and take my money", "Initiate DOH procedure", "Summon the tardis", "Sudo make me a sandwich", "initiate a neural network", "Startup the quantum internet routers proposed by Bernard Couchman", "Wake up Big Chungus"};
+
+// declare variable to detect when code starts
+volatile int activated = 0;
+
 void setup() {
   // set up serial communication
   Serial.begin(9600);
   
-  // attach interrupt to input pin (if desired)
-  // attachInterrupt(digitalPinToInterrupt(inputPin), interruptHandler, FALLING);
+  // attach interrupt to input pin
+  attachInterrupt(digitalPinToInterrupt(inputPin), interruptHandler, FALLING);
 }
 
 void loop() {
-  unsigned long timer;
-
-  // check if input pin is LOW (i.e. signal received)
-  if (!digitalRead(inputPin)) {
-    // read input signal and store as decimal value
+  if (activated) {
     getInput();
-    
-    // wait for the remainder of the cycle to complete
-    timer = millis();
-    while(millis()-timer < cycle);
-    
-    // wait for input signal to return to HIGH before moving on
-    while (!digitalRead(inputPin));
+    activated = 0;
   }
+
+
+  // unsigned long timer;
+
+  // // check if input pin is LOW (i.e. signal received)
+  // if (!digitalRead(inputPin)) {
+  //   // read input signal and store as decimal value
+  //   getInput();
+    
+  //   // wait for the remainder of the cycle to complete
+  //   timer = millis();
+  //   while(millis()-timer < cycle);
+    
+  //   // wait for input signal to return to HIGH before moving on
+  //   while (!digitalRead(inputPin));
+  // }
+}
+
+void interruptHandler() {
+  activated = 1;
 }
 
 // function to read binary input signal and convert to decimal value
@@ -64,7 +80,7 @@ int getInput() {
   if (digitalRead(inputPin)) return -1;
 
   // print decimal value of input signal to serial monitor
-  Serial.println(String(output) + "\n");
+  Serial.println(codes[output]);
   
   // print "==============" separator to serial monitor for debugging purposes
   //Serial.println("================");
