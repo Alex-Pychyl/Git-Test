@@ -3,7 +3,7 @@
 
 using namespace rPI_sender;
 
-const int ouputPin = 10;
+const int outputPin = 10;
 const int cycle = 166;
 
 int main() {
