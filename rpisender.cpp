@@ -1,7 +1,7 @@
 #include <iostream>
 #include "wiringPi.h"
 
-using namespace rPI_sender;
+using namespace rpisender;
 
 const int outputPin = 10;
 const int cycle = 166;
