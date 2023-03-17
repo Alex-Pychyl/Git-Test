@@ -1,5 +1,5 @@
 // set the length of a single cycle of the input signal
-const unsigned int cycle = 166;
+const unsigned int cycle = 1000/6;
 
 // set the input pin number
 const unsigned int inputPin = 3;
