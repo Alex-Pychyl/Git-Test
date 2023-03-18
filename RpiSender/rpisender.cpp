@@ -12,7 +12,7 @@ const char codes[16][100] = {"It's morbin' time", "Beam me up, Scotty", "Power u
 int main() {
     int command = -1;
     char c;
-    //time_t timer;
+    int instructions[6] = {0};
     
     wiringPiSetup();
     pinMode(outputPin, OUTPUT);
@@ -26,16 +26,20 @@ int main() {
         while((c = getchar()) != '\n' && c != EOF);
         printf("Invalid, try again: ");
     }
+    
+    for (int i = 0; i < 4; i++) {
+        if (command-(1<<(3-i))>=0) {
+            instructions[i+1] = 1;
+            command-=1<<(3-i);
+        }
+    }
 
     for (int i = 0; i < 6; i++) {
-        if (i==5) i=6;
-        digitalWrite(outputPin, i%2);
-        digitalWrite(ledPin, i%2);
-        printf("%i", i%2);
-        //timer = time(nullptr);
-        //while(time(nullptr)-timer<cycle);
+        digitalWrite(outputPin, instructions[i]);
+        digitalWrite(ledPin, instructions[i]);
+        printf("%i", instructions[i]);
         delay(cycle);
     }
-    digitalWrite(ledPin, 1);
+    digitalWrite(ledPin, 0);
     digitalWrite(outputPin, 1);
 }
