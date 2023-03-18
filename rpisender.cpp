@@ -3,8 +3,8 @@
 
 using namespace std;
 
-const int outputPin = 10;
-const int cycle = 166;
+const int outputPin = 1;
+const int cycle = 1000/6;
 
 int main() {
     wiringPiSetup();
