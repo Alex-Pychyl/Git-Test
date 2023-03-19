@@ -25,6 +25,7 @@ int main() {
         for (int i = 0; i < 16; i++) {
             printf("(%i) --> %s\n", i, codes[i]);
         }
+        cout << "\n";
         while ((!scanf("%i", &command))||command<-1||command>15) {
             while((c = getchar()) != '\n' && c != EOF);
             printf("Invalid, try again: ");
